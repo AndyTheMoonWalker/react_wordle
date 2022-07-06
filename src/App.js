@@ -1,25 +1,23 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [solution, setSolution] = useState(null);
+	useEffect(() => {
+		fetch('http://localhost:3001/solutions')
+			.then((res) => res.json())
+			.then((json) => {
+				console.log(json);
+				const randomSolution = json[Math.floor(Math.random() * json.length)];
+				setSolution(randomSolution.word);
+			});
+	}, [setSolution]);
+	return (
+		<div className='App'>
+			<h1>Word game</h1>
+			<div>The solution will be {solution}</div>
+		</div>
+	);
 }
 
 export default App;
