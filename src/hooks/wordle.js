@@ -19,6 +19,25 @@ const useWordle = (solution) => {
 	// handle keyup event & track current guess
 	// if user presses enter, add the new guess
 	const handleKeyup = ({ key }) => {
+		if (key === 'Enter') {
+			if (turn > 5) {
+				console.log('You are run out of turns');
+				return;
+			}
+
+			if (history.includes(currentGuess)) {
+				console.log('You already tried this word');
+				return;
+			}
+
+			if (currentGuess.length !== 5) {
+				console.log('Word must be five chars long');
+				return;
+			}
+
+			formatGuess();
+		}
+
 		if (key === 'Backspace') {
 			setCurrentGuess((prev) => {
 				return prev.slice(0, -1);
