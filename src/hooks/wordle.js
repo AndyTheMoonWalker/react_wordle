@@ -72,7 +72,8 @@ const useWordle = (solution) => {
 				return;
 			}
 
-			formatGuess();
+			const formatted = formatGuess();
+			addNewGuess(formatted);
 		}
 
 		if (key === 'Backspace') {
@@ -82,10 +83,8 @@ const useWordle = (solution) => {
 			return;
 		}
 		if (/^[A-Za-z]$/.test(key)) {
-			if (currentGuess < 5) {
-				setCurrentGuess((prev) => {
-					return prev + key;
-				});
+			if (currentGuess.length < 5) {
+				setCurrentGuess((prev) => prev + key);
 			}
 		}
 	};
